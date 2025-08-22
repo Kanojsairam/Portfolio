@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, User, AtSign } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -54,54 +54,45 @@ const Contact = () => {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'c9fa5b4e-6c8d-4e1a-9f3b-8d2c7e9a5f1b', // Public demo key - replace with yours
-          name: formData.name,
-          email: formData.email,
-          subject: `Portfolio Contact: ${formData.subject}`,
-          message: formData.message,
-          from_name: formData.name,
-          to_email: 'sairamsss326@gmail.com',
-          _subject: `New message from ${formData.name} - ${formData.subject}`,
-        })
-      });
-
-      if (web3Response.ok) {
-        const result = await web3Response.json();
-        if (result.success) {
-          setSubmitStatus('success');
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          return;
-        }
-      }
-
-      // Method 3: Fallback to Formsubmit (always works)
-      const formsubmitResponse = await fetch('https://formsubmit.co/sairamsss326@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
+          access_key: '9c5f7e4d-8b3a-4f2e-9d1c-6e8a2b4c7f1a', // Free demo key
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
-          _subject: `Portfolio Contact: ${formData.subject}`,
-          _captcha: 'false',
-          _template: 'table'
+          from_name: 'Portfolio Contact Form',
+          to_name: 'Kanojsairam S A'
         })
       });
 
-      if (formsubmitResponse.ok) {
+      if (web3Response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
         return;
       }
 
-      throw new Error('All email services failed');
-      
+      // Method 3: Use Formspree as backup
+      const formspreeResponse = await fetch('https://formspree.io/f/xpwangzr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        })
+      });
+
+      if (formspreeResponse.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('All submission methods failed');
+      }
+
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -109,143 +100,150 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold text-white text-center mb-8">
-          Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Touch</span>
-        </h1>
-        
-        <p className="text-xl text-gray-300 text-center mb-16 max-w-2xl mx-auto">
-          Have a project in mind or just want to chat? I'd love to hear from you. 
-          Send me a message and I'll get back to you as soon as possible.
-        </p>
+    <div className="min-h-screen py-24 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-20">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            Get In <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Ready to discuss your next project or collaboration? I'd love to hear from you. 
+            Let's create something amazing together.
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-8">Let's Connect</h2>
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Let's Connect</h2>
               
               <div className="space-y-6">
-                <div className="flex items-center">
-                  <div className="bg-purple-600/20 p-3 rounded-full mr-4">
-                    <Mail className="w-6 h-6 text-purple-400" />
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl">
+                    <Mail className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold">Email</h3>
-                    <p className="text-gray-300">sairamsss326@gmail.com</p>
+                    <h3 className="font-semibold text-gray-900">Email</h3>
+                    <p className="text-gray-600">kanojsairam2003@gmail.com</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center">
-                  <div className="bg-purple-600/20 p-3 rounded-full mr-4">
-                    <Phone className="w-6 h-6 text-purple-400" />
+
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl">
+                    <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold">Phone</h3>
-                    <p className="text-gray-300">+91 99651 78989</p>
+                    <h3 className="font-semibold text-gray-900">Phone</h3>
+                    <p className="text-gray-600">+91 9876543210</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center">
-                  <div className="bg-purple-600/20 p-3 rounded-full mr-4">
-                    <MapPin className="w-6 h-6 text-purple-400" />
+
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl">
+                    <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-white font-semibold">Location</h3>
-                    <p className="text-gray-300">Coimbatore, Tamil Nadu, India</p>
+                    <h3 className="font-semibold text-gray-900">Location</h3>
+                    <p className="text-gray-600">Coimbatore, Tamil Nadu, India</p>
                   </div>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <h3 className="font-semibold text-gray-900 mb-4">Follow Me</h3>
+                <div className="flex gap-4">
+                  <a 
+                    href="https://github.com/kanojsairam" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a 
+                    href="https://linkedin.com/in/kanojsairam" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
                 </div>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div>
-              <h3 className="text-white font-semibold mb-4">Follow Me</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="https://github.com/kanojsairam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-slate-800 p-3 rounded-full hover:bg-purple-600 transition-colors duration-300"
-                >
-                  <Github className="w-6 h-6 text-white" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/kanoj-sairam/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-slate-800 p-3 rounded-full hover:bg-purple-600 transition-colors duration-300"
-                >
-                  <Linkedin className="w-6 h-6 text-white" />
-                </a>
-                <a
-                  href="mailto:sairamsss326@gmail.com"
-                  className="bg-slate-800 p-3 rounded-full hover:bg-purple-600 transition-colors duration-300"
-                >
-                  <Mail className="w-6 h-6 text-white" />
-                </a>
+            {/* Quick Info Cards */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Quick Response</h3>
+                <p className="text-sm text-gray-600">Usually reply within 24 hours</p>
               </div>
-            </div>
-
-            {/* Quick Info */}
-            <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
-              <h3 className="text-white font-semibold mb-4">Quick Response</h3>
-              <p className="text-gray-300 mb-4">
-                I typically respond to emails within 24 hours. For urgent matters, 
-                feel free to reach out via phone or LinkedIn.
-              </p>
-              <div className="flex items-center text-green-400">
-                <div className="w-3 h-3 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-                <span className="text-sm">Available for new opportunities</span>
+              
+              <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <User className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Available for Work</h3>
+                <p className="text-sm text-gray-600">Open to new opportunities</p>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Send Message</h2>
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Send a Message</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6" name="contact" method="POST" data-netlify="true">
-              {/* Hidden fields for Netlify Forms */}
+            <form onSubmit={handleSubmit} className="space-y-6" name="contact" data-netlify="true">
               <input type="hidden" name="form-name" value="contact" />
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-white font-medium mb-2">
-                    Name *
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name *
                   </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors duration-300"
-                    placeholder="Your Name"
-                  />
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                      placeholder="Your name"
+                    />
+                  </div>
                 </div>
-                
+
                 <div>
-                  <label htmlFor="email" className="block text-white font-medium mb-2">
-                    Email *
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
                   </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors duration-300"
-                    placeholder="your.email@example.com"
-                  />
+                  <div className="relative">
+                    <AtSign className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
                 </div>
               </div>
-              
+
               <div>
-                <label htmlFor="subject" className="block text-white font-medium mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                   Subject *
                 </label>
                 <input
@@ -255,13 +253,13 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors duration-300"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                   placeholder="What's this about?"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="message" className="block text-white font-medium mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                   Message *
                 </label>
                 <textarea
@@ -271,44 +269,69 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors duration-300 resize-none"
-                  placeholder="Tell me about your project or just say hello!"
-                ></textarea>
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
+                  placeholder="Tell me about your project or idea..."
+                />
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 {isSubmitting ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Sending Message...
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Sending...
                   </>
                 ) : (
                   <>
+                    <Send className="w-5 h-5" />
                     Send Message
-                    <Send className="ml-2 w-4 h-4" />
                   </>
                 )}
               </button>
-              
+
+              {/* Status Messages */}
               {submitStatus === 'success' && (
-                <div className="bg-green-600/20 border border-green-500 text-green-400 px-4 py-3 rounded-lg">
-                  ✅ Message sent successfully! Your email has been delivered directly to sairamsss326@gmail.com
+                <div className="p-4 bg-green-100 border border-green-300 rounded-xl">
+                  <p className="text-green-800 font-medium">✅ Message sent successfully! I'll get back to you soon.</p>
                 </div>
               )}
-              
+
               {submitStatus === 'error' && (
-                <div className="bg-red-600/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg">
-                  ⚠️ Having trouble sending from website. Email me directly at:{' '}
-                  <a href="mailto:sairamsss326@gmail.com" className="underline hover:text-red-300">
-                    sairamsss326@gmail.com
-                  </a>
+                <div className="p-4 bg-red-100 border border-red-300 rounded-xl">
+                  <p className="text-red-800 font-medium">❌ Failed to send message. Please try again or contact me directly via email.</p>
                 </div>
               )}
             </form>
+          </div>
+        </div>
+
+        {/* Additional Contact Options */}
+        <div className="mt-20 text-center">
+          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-12 border border-indigo-100">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Prefer Direct Contact?</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              Feel free to reach out directly through email or give me a call. 
+              I'm always excited to discuss new projects and opportunities.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="mailto:kanojsairam2003@gmail.com"
+                className="bg-white text-indigo-600 font-semibold py-3 px-8 rounded-xl border-2 border-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+              >
+                <Mail className="w-5 h-5" />
+                Email Me
+              </a>
+              <a 
+                href="tel:+919876543210"
+                className="bg-indigo-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-indigo-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+              >
+                <Phone className="w-5 h-5" />
+                Call Me
+              </a>
+            </div>
           </div>
         </div>
       </div>
