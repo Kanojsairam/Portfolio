@@ -10,13 +10,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [submittedData, setSubmittedData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -24,19 +18,14 @@ const Contact = () => {
     });
   };
 
-  const handleReset = () => {
-    setSubmitStatus('idle');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setSubmittedData({ name: '', email: '', subject: '', message: '' });
-  };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     // Store the submitted data before clearing the form
-    setSubmittedData({ ...formData });
+    
 
     // Simulate form processing delay
     setTimeout(() => {
@@ -242,7 +231,7 @@ const Contact = () => {
               {submitStatus === 'success' && (
                 <div className="p-6 bg-green-50 border border-green-200 rounded-xl">
                   <div className="text-green-800">
-                    <h3 className="font-semibold text-lg mb-4">✅ Message Received Successfully!</h3>
+                    <h3 className="font-semibold text-lg mb-4">✅ Message Sent Successfully!</h3>
                   </div>
                 </div>
               )}
