@@ -24,72 +24,55 @@ const Contact = () => {
     setSubmitStatus('idle');
 
     try {
-      // Method 1: Try Netlify Forms first (if deployed on Netlify)
-      if (window.location.hostname.includes('netlify.app') || window.location.hostname.includes('netlify.com')) {
-        const netlifyParams = new URLSearchParams();
-        netlifyParams.append('form-name', 'contact');
-        netlifyParams.append('name', formData.name);
-        netlifyParams.append('email', formData.email);
-        netlifyParams.append('subject', formData.subject);
-        netlifyParams.append('message', formData.message);
+      // Create email content
+      const emailSubject = `Portfolio Contact: ${formData.subject}`;
+      const emailBody = `
+Hello Kanojsairam,
 
-        const netlifyResponse = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: netlifyParams.toString()
-        });
+You have received a new message from your portfolio contact form:
 
-        if (netlifyResponse.ok) {
-          setSubmitStatus('success');
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          return;
-        }
-      }
+Name: ${formData.name}
+Email: ${formData.email}
+Subject: ${formData.subject}
 
-      // Method 2: Use Web3Forms (free, no signup required)
-      const web3Response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          access_key: '9c5f7e4d-8b3a-4f2e-9d1c-6e8a2b4c7f1a', // Free demo key
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          from_name: 'Portfolio Contact Form',
-          to_name: 'Kanojsairam S A'
-        })
-      });
+Message:
+${formData.message}
 
-      if (web3Response.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        return;
-      }
+---
+This message was sent from your portfolio contact form.
+You can reply directly to: ${formData.email}
+      `.trim();
 
-      // Method 3: Use Formspree as backup
-      const formspreeResponse = await fetch('https://formspree.io/f/xpwangzr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message
-        })
-      });
+      // Create a hidden form that submits to your email
+      const tempForm = document.createElement('form');
+      tempForm.method = 'POST';
+      tempForm.action = `mailto:sairamsss326@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      tempForm.style.display = 'none';
 
-      if (formspreeResponse.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error('All submission methods failed');
-      }
+      // Add form data as hidden inputs
+      const addHiddenInput = (name: string, value: string) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        tempForm.appendChild(input);
+      };
+
+      addHiddenInput('name', formData.name);
+      addHiddenInput('email', formData.email);
+      addHiddenInput('subject', formData.subject);
+      addHiddenInput('message', formData.message);
+
+      document.body.appendChild(tempForm);
+      
+      // Use mailto to open email client with pre-filled content
+      window.location.href = `mailto:sairamsss326@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // Clean up
+      document.body.removeChild(tempForm);
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
 
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -126,7 +109,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-gray-600">kanojsairam2003@gmail.com</p>
+                    <p className="text-gray-600">sairamsss326@gmail.com</p>
                   </div>
                 </div>
 
@@ -136,7 +119,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+91 9876543210</p>
+                    <p className="text-gray-600">+91 9965178989</p>
                   </div>
                 </div>
 
@@ -199,8 +182,7 @@ const Contact = () => {
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Send a Message</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6" name="contact" data-netlify="true">
-              <input type="hidden" name="form-name" value="contact" />
+            <form onSubmit={handleSubmit} className="space-y-6">
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -295,13 +277,13 @@ const Contact = () => {
               {/* Status Messages */}
               {submitStatus === 'success' && (
                 <div className="p-4 bg-green-100 border border-green-300 rounded-xl">
-                  <p className="text-green-800 font-medium">✅ Message sent successfully! I'll get back to you soon.</p>
+                  <p className="text-green-800 font-medium">✅ Email client opened with your message! Send the email to complete your message delivery.</p>
                 </div>
               )}
 
               {submitStatus === 'error' && (
                 <div className="p-4 bg-red-100 border border-red-300 rounded-xl">
-                  <p className="text-red-800 font-medium">❌ Failed to send message. Please try again or contact me directly via email.</p>
+                  <p className="text-red-800 font-medium">❌ Could not open email client. Please contact me directly at sairamsss326@gmail.com</p>
                 </div>
               )}
             </form>
@@ -318,14 +300,14 @@ const Contact = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="mailto:kanojsairam2003@gmail.com"
+                href="mailto:sairamsss326@gmail.com"
                 className="bg-white text-indigo-600 font-semibold py-3 px-8 rounded-xl border-2 border-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 <Mail className="w-5 h-5" />
                 Email Me
               </a>
               <a 
-                href="tel:+919876543210"
+                href="tel:+919965178989"
                 className="bg-indigo-600 text-white font-semibold py-3 px-8 rounded-xl hover:bg-indigo-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 <Phone className="w-5 h-5" />
