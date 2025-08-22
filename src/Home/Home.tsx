@@ -74,7 +74,7 @@ const Home = () => {
             <a href="https://www.linkedin.com/in/kanoj-sairam/" target="_blank" rel="noopener noreferrer" className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
               <Linkedin className="w-6 h-6 text-gray-700 group-hover:text-indigo-600" />
             </a>
-            <a href="mailto:kanojsairam.sa2022ece@sece.ac.in" className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+            <a href="mailto:sairamsss326@gmail.com" className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
               <Mail className="w-6 h-6 text-gray-700 group-hover:text-indigo-600" />
             </a>
           </div>
