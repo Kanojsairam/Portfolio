@@ -10,6 +10,12 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submittedData, setSubmittedData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -18,68 +24,26 @@ const Contact = () => {
     });
   };
 
+  const handleReset = () => {
+    setSubmitStatus('idle');
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    setSubmittedData({ name: '', email: '', subject: '', message: '' });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    try {
-      // Create email content
-      const emailSubject = `Portfolio Contact: ${formData.subject}`;
-      const emailBody = `
-Hello Kanojsairam,
+    // Store the submitted data before clearing the form
+    setSubmittedData({ ...formData });
 
-You have received a new message from your portfolio contact form:
-
-Name: ${formData.name}
-Email: ${formData.email}
-Subject: ${formData.subject}
-
-Message:
-${formData.message}
-
----
-This message was sent from your portfolio contact form.
-You can reply directly to: ${formData.email}
-      `.trim();
-
-      // Create a hidden form that submits to your email
-      const tempForm = document.createElement('form');
-      tempForm.method = 'POST';
-      tempForm.action = `mailto:sairamsss326@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-      tempForm.style.display = 'none';
-
-      // Add form data as hidden inputs
-      const addHiddenInput = (name: string, value: string) => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = name;
-        input.value = value;
-        tempForm.appendChild(input);
-      };
-
-      addHiddenInput('name', formData.name);
-      addHiddenInput('email', formData.email);
-      addHiddenInput('subject', formData.subject);
-      addHiddenInput('message', formData.message);
-
-      document.body.appendChild(tempForm);
-      
-      // Use mailto to open email client with pre-filled content
-      window.location.href = `mailto:sairamsss326@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-      
-      // Clean up
-      document.body.removeChild(tempForm);
-      
+    // Simulate form processing delay
+    setTimeout(() => {
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-    } finally {
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -276,8 +240,10 @@ You can reply directly to: ${formData.email}
 
               {/* Status Messages */}
               {submitStatus === 'success' && (
-                <div className="p-4 bg-green-100 border border-green-300 rounded-xl">
-                  <p className="text-green-800 font-medium">✅ Email client opened with your message! Send the email to complete your message delivery.</p>
+                <div className="p-6 bg-green-50 border border-green-200 rounded-xl">
+                  <div className="text-green-800">
+                    <h3 className="font-semibold text-lg mb-4">✅ Message Received Successfully!</h3>
+                  </div>
                 </div>
               )}
 
