@@ -1,0 +1,67 @@
+KANOJSAIRAM S A
+Electronics & Communication Engineering Student
+Email: sairamsss326@gmail.com | Phone: +91 99651 78989
+Location: Coimbatore, Tamil Nadu, India
+GitHub: github.com/kanojsairam | LinkedIn: linkedin.com/in/kanoj-sairam
+
+EDUCATION
+B.E (Electronics & Communication Engineering) | 2022-2026
+Sri Eshwar College of Engineering
+CGPA: 7.78 (Up to 6th semester)
+
+Higher Secondary Certificate (HSC) | 2020-2022
+Jayanthi Matric Hr Secondary School | 77.83%
+
+Secondary School Leaving Certificate (SSLC) | 2019-2020  
+Jayanthi Matric Hr Secondary School | 97%
+
+EXPERIENCE
+MERN Stack Intern | Better Tomorrow | 2024
+• Completed comprehensive MERN stack development with real-time projects
+• Optimized web applications with enhanced data handling capabilities
+• Utilized React.js, Node.js, Express.js, and MongoDB
+
+TECHNICAL SKILLS
+Programming Languages: Python, C, Java, C++, HTML, CSS, JavaScript
+Frameworks & Libraries: Flask, Express.js, React.js, Chart.js, Node.js
+Databases & Cloud: SQL, MongoDB, Convex, AWS
+Development Tools: VS Code, GitHub, IntelliJ IDEA, Eclipse, Figma, Clerk
+Core Concepts: Data Structures & Algorithms, OOP, IoT & Smart Sensing, Machine Learning
+Specialized Tools: Cisco Packet Tracer, Gemini AI, PyTorch, IoT Sensors
+
+PROJECTS
+BioSync360: AI-Powered Telemedicine
+• Developed AI-driven telemedicine platform for remote healthcare access
+• Integrated IoT-enabled smart sensing and AI-based analysis
+• Tech Stack: React.js, Node.js, Express.js, MongoDB, Gemini AI, IoT
+
+Metro Minds: Urban Management System  
+• Implemented IoT-powered solution for city infrastructure monitoring
+• Applied ML models for flood detection, earthquake prediction, traffic control
+• Tech Stack: C, React.js, Node.js, Express.js, MongoDB, PyTorch, IoT
+
+Agrisense: Smart Farming & Crop Optimization
+• Designed sensor-based system for real-time soil data analysis
+• Winner of 2nd place at Ninjacart Hackathon for Agritech Solutions
+• Tech Stack: React.js, Flask, Convex, Gemini AI, Clerk, IoT
+
+ACHIEVEMENTS
+Hackathon Wins:
+• Finalist (2nd Place) - Ninjacart Hackathon (Agritech Solutions)
+• Champion - Tech Trek Hackathon (Innovative Tech Solution)  
+• Finalist (2nd Place) - CodeSprint2K25 (24-Hour Hackathon)
+• Top 15 Finalist - Pravaah Hackathon (600+ participants)
+• First Place - Project Leap 23 (Java DB Sprint)
+• First Place - Project Expo 24 (Mini Project Innovation)
+
+Coding Achievements:
+• LeetCode: Highest Rating of 1,524 | Top 36.97%
+• CodeChef: Solved 100+ problems in Python and C
+• HackerRank: 4⭐ Python, 2⭐ C, 1⭐ SQL | 3 Badges
+
+CERTIFICATIONS
+• Certified in Cloud Computing (NPTEL, 2024)
+• Mastering Data Structures & Algorithms (Udemy, 2024)
+• The Joy of Computing Using Python (NPTEL, 2023)
+• SQL Certifications (HackerRank, 2023)
+• Introduction to MongoDB for Students (MongoDB, 2023)
