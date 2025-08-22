@@ -1,22 +1,109 @@
-# React + TypeScript + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Professional portfolio website showcasing my projects, skills, and experience as an Electronics & Communication Engineering student and MERN Stack Developer.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Modern Design**: Built with React, TypeScript, and Tailwind CSS
+- **Responsive Layout**: Optimized for desktop, tablet, and mobile devices
+- **Interactive Skills**: Progress bars showing proficiency levels
+- **Project Showcase**: Featured projects with live demo links
+- **Contact Form**: Functional email contact system
+- **Resume Download**: PDF resume download functionality
+- **Professional Profile**: Circular profile image with gradient border
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React.js, TypeScript, Tailwind CSS
+- **Build Tool**: Vite
+- **Icons**: Lucide React
+- **Routing**: React Router
+- **Email Service**: Web3Forms integration
+- **Styling**: CSS3, Gradient backgrounds, Animations
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
+## 📁 Project Structure
+
+```
+src/
+├── components/         # Reusable components
+├── Home/              # Home page component
+├── About/             # About page with skills and experience
+├── Contact/           # Contact form with email integration
+├── lib/               # Utility functions
+└── assets/            # Static assets
+
+public/
+├── profile-photo.jpg  # Professional profile image
+├── 22EC054 (1).pdf   # Resume PDF
+└── vite.svg          # Vite logo
+```
+
+## 🎨 Key Sections
+
+### Home Page
+- Hero section with introduction
+- Featured projects showcase
+- Top technical skills with progress bars
+- Social media links
+- Smooth scroll animations
+
+### About Page
+- Professional profile image
+- Detailed background and experience
+- Comprehensive skills categorization
+- Project descriptions with technologies used
+- Education and internship details
+
+### Contact Page
+- Functional contact form
+- Direct email integration
+- Professional contact information
+- Social media links
+
+## 🌟 Skills Highlighted
+
+- **Programming**: Python (95%), C (90%), Java (88%), JavaScript (85%)
+- **Frameworks**: React.js, Node.js, Express.js, Flask
+- **Databases**: MongoDB, SQL
+- **Specializations**: IoT, Machine Learning, AI Integration
+- **Tools**: VS Code, Git, AWS, Figma
+
+## 📞 Contact Information
+
+- **Email**: kanojsairam.sa2022ece@sece.ac.in
+- **LinkedIn**: [kanoj-sairam](https://www.linkedin.com/in/kanoj-sairam/)
+- **GitHub**: [kanojsairam](https://github.com/kanojsairam)
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kanojsairam/Portfolio.git
+   ```
+
+2. Install dependencies:
+   ```bash
+   cd Portfolio
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+*Built with ❤️ by Kanojsairam S A*
       // Other configs...
 
       // Remove tseslint.configs.recommended and replace with this
@@ -60,10 +147,6 @@ export default tseslint.config([
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+*Built with ❤️ by Kanojsairam S A*
