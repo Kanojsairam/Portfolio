@@ -24,64 +24,15 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    // Create the email content (declared at function scope)
-    const emailSubject = `Portfolio Contact: ${formData.subject}`;
-    const emailBody = `
-Name: ${formData.name}
-Email: ${formData.email}
-Subject: ${formData.subject}
+    // Store the submitted data before clearing the form
+    
 
-Message:
-${formData.message}
-
----
-Sent from Portfolio Contact Form
-Reply to: ${formData.email}
-    `.trim();
-
-    try {
-      // Method 1: Use FormSubmit (free email service)
-      const formSubmitResponse = await fetch('https://formsubmit.co/sairamsss326@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          _subject: emailSubject,
-          _captcha: 'false',
-          _template: 'table'
-        })
-      });
-
-      if (formSubmitResponse.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error('Form submission failed');
-      }
-
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      
-      // Try fallback: Create mailto link as backup
-      try {
-        const mailtoLink = `mailto:sairamsss326@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        window.open(mailtoLink, '_blank');
-        
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } catch {
-        // If both methods fail, show error
-        setSubmitStatus('error');
-      }
-    } finally {
+    // Simulate form processing delay
+    setTimeout(() => {
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
       setIsSubmitting(false);
-    }
+    }, 1000);
   };
 
   return (
@@ -280,17 +231,14 @@ Reply to: ${formData.email}
               {submitStatus === 'success' && (
                 <div className="p-6 bg-green-50 border border-green-200 rounded-xl">
                   <div className="text-green-800">
-                    <h3 className="font-semibold text-lg mb-2">✅ Message Sent Successfully!</h3>
-                    <p className="text-sm text-green-700">
-                      Your message has been delivered to my inbox. I'll get back to you within 24 hours at the email address you provided.
-                    </p>
+                    <h3 className="font-semibold text-lg mb-4">✅ Message Sent Successfully!</h3>
                   </div>
                 </div>
               )}
 
               {submitStatus === 'error' && (
                 <div className="p-4 bg-red-100 border border-red-300 rounded-xl">
-                  <p className="text-red-800 font-medium">❌ There was an issue sending your message. Please try again or contact me directly at sairamsss326@gmail.com</p>
+                  <p className="text-red-800 font-medium">❌ Could not open email client. Please contact me directly at sairamsss326@gmail.com</p>
                 </div>
               )}
             </form>

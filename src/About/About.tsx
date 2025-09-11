@@ -88,16 +88,15 @@ const About = () => {
               </div>
               <div className="space-y-4">
                 {[
-                  { name: 'React.js', level: 90, emoji: '⚛️' },
-                  { name: 'JavaScript', level: 85, emoji: '🔥' },
-                  { name: 'TypeScript', level: 80, emoji: '💻' },
-                  { name: 'HTML/CSS', level: 95, emoji: '🎨' },
-                  { name: 'Tailwind CSS', level: 85, emoji: '🌈' }
+                  { name: 'React.js', level: 90 },
+                  { name: 'JavaScript', level: 85 },
+                  { name: 'TypeScript', level: 80 },
+                  { name: 'HTML/CSS', level: 95 },
+                  { name: 'Tailwind CSS', level: 85 }
                 ].map((skill) => (
                   <div key={skill.name}>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium flex items-center gap-2">
-                        <span>{skill.emoji}</span>
+                      <span className="text-gray-700 font-medium">
                         {skill.name}
                       </span>
                       <span className="text-sm text-gray-500">{skill.level}%</span>
@@ -123,16 +122,15 @@ const About = () => {
               </div>
               <div className="space-y-4">
                 {[
-                  { name: 'Node.js', level: 85, emoji: '🚀' },
-                  { name: 'Python', level: 95, emoji: '🐍' },
-                  { name: 'Express.js', level: 80, emoji: '⚡' },
-                  { name: 'MongoDB', level: 80, emoji: '🍃' },
-                  { name: 'MySQL', level: 75, emoji: '🗄️' }
+                  { name: 'Node.js', level: 85 },
+                  { name: 'Python', level: 95 },
+                  { name: 'Express.js', level: 80 },
+                  { name: 'MongoDB', level: 80 },
+                  { name: 'MySQL', level: 75 }
                 ].map((skill) => (
                   <div key={skill.name}>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium flex items-center gap-2">
-                        <span>{skill.emoji}</span>
+                      <span className="text-gray-700 font-medium">
                         {skill.name}
                       </span>
                       <span className="text-sm text-gray-500">{skill.level}%</span>
@@ -158,16 +156,15 @@ const About = () => {
               </div>
               <div className="space-y-4">
                 {[
-                  { name: 'Git & GitHub', level: 85, emoji: '🔗' },
-                  { name: 'IoT Development', level: 80, emoji: '📡' },
-                  { name: 'Arduino', level: 90, emoji: '🔧' },
-                  { name: 'Figma', level: 75, emoji: '🎯' },
-                  { name: 'VS Code', level: 90, emoji: '💡' }
+                  { name: 'Git & GitHub', level: 85 },
+                  { name: 'IoT Development', level: 80 },
+                  { name: 'Arduino', level: 90 },
+                  { name: 'Figma', level: 75 },
+                  { name: 'VS Code', level: 90 }
                 ].map((skill) => (
                   <div key={skill.name}>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-700 font-medium flex items-center gap-2">
-                        <span>{skill.emoji}</span>
+                      <span className="text-gray-700 font-medium">
                         {skill.name}
                       </span>
                       <span className="text-sm text-gray-500">{skill.level}%</span>
@@ -273,9 +270,9 @@ const About = () => {
                 gradient: "from-blue-500 to-cyan-500"
               },
               {
-                title: "Urban Traffic Management",
+                title: "Urban Management System",
                 description: "Smart traffic optimization system using computer vision and machine learning for real-time traffic analysis.",
-                tech: ["Python", "OpenCV", "ML", "IoT"],
+                tech: ["Python", "OpenCV", "ML", "IoT" , "C"],
                 icon: "🚦",
                 gradient: "from-purple-500 to-pink-500"
               }
