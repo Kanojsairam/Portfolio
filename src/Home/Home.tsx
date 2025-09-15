@@ -1,7 +1,16 @@
 import { ArrowDown, Github, Linkedin, Mail, ExternalLink, Download, Briefcase } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const projects = [
     {
       name: 'BioSync360',
@@ -42,81 +51,77 @@ const Home = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Link
-              to="/contact"
+            <button
+              onClick={() => scrollToSection('contact')}
               className="group bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
             >
               <Mail className="w-5 h-5" />
               Get In Touch
-            </Link>
-            <Link
-              to="/about"
-              className="group border-2 border-indigo-600 text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300 flex items-center gap-2"
+            </button>
+            <button
+              onClick={() => scrollToSection('about')}
+              className="group border-2 border-indigo-600 text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
             >
               <Briefcase className="w-5 h-5" />
-              Learn More
-            </Link>
+              View My Work
+            </button>
             <a
               href="/22EC054 (1).pdf"
               download="Kanojsairam_S_A_Resume.pdf"
-              className="group border-2 border-green-600 text-green-600 px-8 py-4 rounded-xl font-semibold hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center gap-2"
+              className="group border-2 border-green-600 text-green-600 px-8 py-4 rounded-xl font-semibold hover:bg-green-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2"
             >
               <Download className="w-5 h-5" />
               Download Resume
             </a>
           </div>
-          
+
           {/* Social Links */}
-          <div className="flex justify-center space-x-8 mb-16">
+          <div className="flex justify-center space-x-6 mb-16">
             <a href="https://github.com/kanojsairam" target="_blank" rel="noopener noreferrer" className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
               <Github className="w-6 h-6 text-gray-700 group-hover:text-indigo-600" />
             </a>
             <a href="https://www.linkedin.com/in/kanoj-sairam/" target="_blank" rel="noopener noreferrer" className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
               <Linkedin className="w-6 h-6 text-gray-700 group-hover:text-indigo-600" />
             </a>
-            <a href="mailto:sairamsss326@gmail.com" className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110">
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="group p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+            >
               <Mail className="w-6 h-6 text-gray-700 group-hover:text-indigo-600" />
-            </a>
+            </button>
           </div>
-        </div>
-        
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowDown className="text-indigo-600" size={32} />
+
+          {/* Scroll Down Indicator */}
+          <button
+            onClick={() => scrollToSection('about')}
+            className="animate-bounce text-indigo-600 hover:text-indigo-700 transition-colors duration-300"
+          >
+            <ArrowDown className="w-8 h-8 mx-auto" />
+          </button>
         </div>
       </section>
 
       {/* Featured Projects Section */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Featured <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Projects</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Innovative solutions combining cutting-edge technology with real-world impact
+              Innovative solutions combining cutting-edge technology with real-world applications
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <div
-                key={project.name}
-                className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
-              >
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors duration-300">
-                    {project.name}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">{project.description}</p>
-                </div>
+              <div key={project.name} className="group bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{project.name}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium"
-                    >
+                    <span key={tech} className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">
                       {tech}
                     </span>
                   ))}
@@ -126,9 +131,9 @@ const Home = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-indigo-600 font-semibold hover:text-purple-600 transition-colors duration-300 group"
+                  className="group inline-flex items-center text-indigo-600 hover:text-indigo-700 font-semibold transition-colors duration-300"
                 >
-                  View Project 
+                  View Project
                   <ExternalLink size={16} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </a>
               </div>
@@ -137,54 +142,52 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Skills Preview */}
+      {/* Skills Preview Section */}
       <section className="py-24 px-4 bg-gradient-to-br from-indigo-50 to-purple-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Technical <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Skills</span>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Technical <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Expertise</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Core programming languages and proficiency levels
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Full-stack development, IoT solutions, and cutting-edge technology integration
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { name: 'Python', level: 95, color: 'from-green-500 to-emerald-600', icon: '🐍' },
-              { name: 'C', level: 90, color: 'from-blue-500 to-indigo-600', icon: '⚡' },
-              { name: 'Java', level: 88, color: 'from-orange-500 to-red-600', icon: '☕' },
-              { name: 'JavaScript', level: 85, color: 'from-yellow-500 to-orange-600', icon: '🚀' }
-            ].map((skill) => (
-              <div
-                key={skill.name}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{skill.icon}</span>
-                    <span className="text-gray-900 font-bold text-xl">{skill.name}</span>
-                  </div>
-                  <span className="text-indigo-600 font-bold text-lg">{skill.level}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                  <div
-                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000 ease-out shadow-sm`}
-                    style={{ width: `${skill.level}%` }}
-                  ></div>
-                </div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">⚛️</span>
               </div>
-            ))}
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Frontend Development</h3>
+              <p className="text-gray-600">React.js, TypeScript, Tailwind CSS</p>
+            </div>
+            
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🚀</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Backend Development</h3>
+              <p className="text-gray-600">Node.js, Python, Express.js, MongoDB</p>
+            </div>
+            
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">📡</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">IoT & Hardware</h3>
+              <p className="text-gray-600">Arduino, Sensors, AI/ML Integration</p>
+            </div>
           </div>
-          
-          <div className="text-center mt-16">
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+
+          <div className="text-center">
+            <button
+              onClick={() => scrollToSection('about')}
+              className="group bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-2 mx-auto"
             >
-              View All Skills
-              <ArrowDown className="w-5 h-5 rotate-[-90deg]" />
-            </Link>
+              <ArrowDown className="w-5 h-5" />
+              Learn More About Me
+            </button>
           </div>
         </div>
       </section>

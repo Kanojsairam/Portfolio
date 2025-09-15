@@ -20,7 +20,7 @@ const About = () => {
               <div className="w-80 h-80 mx-auto bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl flex items-center justify-center p-2 shadow-2xl">
                 <div className="w-full h-full bg-white rounded-2xl overflow-hidden">
                   <img 
-                    src="/profile-photo.jpg" 
+                    src="/Me.jpg" 
                     alt="Kanojsairam S A" 
                     className="w-full h-full object-cover"
                     style={{ objectPosition: 'center 30%', transform: 'scale(1.1)' }}

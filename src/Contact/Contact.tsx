@@ -10,29 +10,69 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error message when user starts typing
+    if (errorMessage) {
+      setErrorMessage('');
+      setSubmitStatus('idle');
+    }
   };
 
   
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
-
-    // Store the submitted data before clearing the form
+    setErrorMessage('');
     
+    try {
+      // Validate form data
+      if (!formData.name.trim()) throw new Error('Name is required');
+      if (!formData.email.trim()) throw new Error('Email is required');
+      if (!formData.subject.trim()) throw new Error('Subject is required');
+      if (!formData.message.trim()) throw new Error('Message is required');
 
-    // Simulate form processing delay
-    setTimeout(() => {
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email.trim())) {
+        throw new Error('Email ID is incorrect');
+      }
+
+      // Prepare and submit form data
+      const submitData = new FormData();
+      submitData.append('name', formData.name.trim());
+      submitData.append('email', formData.email.trim());
+      submitData.append('subject', formData.subject.trim());
+      submitData.append('message', formData.message.trim());
+      submitData.append('_captcha', 'false');
+      submitData.append('_template', 'table');
+      submitData.append('_subject', `Portfolio Contact: ${formData.subject.trim()}`);
+
+      const response = await fetch('https://formsubmit.co/sairamsss326@gmail.com', {
+        method: 'POST',
+        body: submitData
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error('Failed to send message. Please try again.');
+      }
+      
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message');
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -135,7 +175,19 @@ const Contact = () => {
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Send a Message</h2>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form 
+              action="https://formsubmit.co/sairamsss326@gmail.com" 
+              method="POST"
+              onSubmit={handleSubmit} 
+              className="space-y-6"
+            >
+              
+              {/* Hidden FormSubmit fields */}
+              <input type="hidden" name="_next" value={typeof window !== 'undefined' ? window.location.href : ''} />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_subject" value="New message from Portfolio Contact Form" />
+              <input type="hidden" name="_cc" value="sairamsss326@gmail.com" />
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -217,7 +269,7 @@ const Contact = () => {
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    Sending...
+                    Sending Message...
                   </>
                 ) : (
                   <>
@@ -230,15 +282,83 @@ const Contact = () => {
               {/* Status Messages */}
               {submitStatus === 'success' && (
                 <div className="p-6 bg-green-50 border border-green-200 rounded-xl">
-                  <div className="text-green-800">
-                    <h3 className="font-semibold text-lg mb-4">✅ Message Sent Successfully!</h3>
+                  <div className="text-green-800 text-center">
+                    <h3 className="font-semibold text-lg">✅ Message Sent Successfully!</h3>
                   </div>
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="p-4 bg-red-100 border border-red-300 rounded-xl">
-                  <p className="text-red-800 font-medium">❌ Could not open email client. Please contact me directly at sairamsss326@gmail.com</p>
+                <div className="p-6 bg-red-50 border border-red-200 rounded-xl">
+                  <div className="text-red-800">
+                    <h3 className="font-semibold text-lg mb-2">❌ {errorMessage || 'Message Could Not Be Sent'}</h3>
+                    <p className="text-red-700 mb-4">
+                      {errorMessage ? 'Please check the details and try again.' : 'There was an issue sending your message. Please try one of these alternatives:'}
+                    </p>
+                    <div className="space-y-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <a 
+                          href="mailto:sairamsss326@gmail.com?subject=Portfolio Contact&body=Hi Kanojsairam,%0A%0AI'd like to get in touch with you.%0A%0ABest regards"
+                          className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                        >
+                          <Mail className="w-4 h-4" />
+                          Email Direct
+                        </a>
+                        <a 
+                          href="tel:+919965178989"
+                          className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+                        >
+                          <Phone className="w-4 h-4" />
+                          Call Now
+                        </a>
+                      </div>
+                      
+                      {!errorMessage && (
+                        <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                          <p className="text-yellow-800 text-sm mb-3">Try this simplified contact method:</p>
+                          <form 
+                            action="https://formsubmit.co/sairamsss326@gmail.com" 
+                            method="POST"
+                            className="space-y-3"
+                          >
+                            <input type="hidden" name="_captcha" value="false" />
+                            <input type="hidden" name="_template" value="table" />
+                            <input type="hidden" name="_subject" value="Portfolio Quick Contact" />
+                            
+                            <div className="grid grid-cols-2 gap-2">
+                              <input 
+                                type="text" 
+                                name="name" 
+                                placeholder="Your name" 
+                                required 
+                                className="px-3 py-2 border border-yellow-300 rounded text-sm"
+                              />
+                              <input 
+                                type="email" 
+                                name="email" 
+                                placeholder="Your email" 
+                                required 
+                                className="px-3 py-2 border border-yellow-300 rounded text-sm"
+                              />
+                            </div>
+                            <textarea 
+                              name="message" 
+                              placeholder="Your message" 
+                              required 
+                              rows={2}
+                              className="w-full px-3 py-2 border border-yellow-300 rounded text-sm resize-none"
+                            ></textarea>
+                            <button 
+                              type="submit"
+                              className="w-full bg-yellow-600 text-white py-2 rounded hover:bg-yellow-700 transition-colors text-sm"
+                            >
+                              Send Quick Message
+                            </button>
+                          </form>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
             </form>
